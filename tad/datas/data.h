@@ -46,7 +46,13 @@ unsigned int numeroAnosDatas(Data d1, Data d2);
 unsigned int obtemDiaSemanaData(Data d);
 
 // 16. Retorna uma string com a data “formatada” de acordo com o especificado em formato.
-char* imprimeData(Data d, char* formato);
+void imprimeData(Data d, char* formato);
 
 // Funções acessórias
 void exibaResultadoTrueFalse(unsigned int resultado);
+
+void exibaResultadoMenorIgualMaior(unsigned int resultado);
+
+unsigned int obtenhaQuantidadeDeDiasDoMes(Data d);
+
+Data adicioneDiaNaData(Data d);
