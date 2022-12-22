@@ -22,6 +22,7 @@ int main()
     empilhar(pilha, 5);
     empilhar(pilha, 6);
     empilhar(pilha, 7);
+
     imprimePilha(pilha);
 
     removeChave(pilha, 3);
@@ -57,18 +58,12 @@ int* empilhar(int* pilha, int valor)
         return pilha;
     }
     
-    int indiceProximoLivre;
-
-    for (int count = 0; count < TAM_PILHA; count++)
+    if (estaVazia(pilha) == 1)
     {
-        if (pilha[count] == 0)
-        {
-            indiceProximoLivre = count;
-            break;
-        }
+        pilha[0] = valor;
     }
     
-    pilha[indiceProximoLivre] = valor;
+    pilha[tamanho] = valor;
 
     return pilha;
 }
@@ -145,6 +140,7 @@ void imprimePilha(int* pilha)
 {
     int tamanho = obtenhaTamanhoDaPilha(pilha);
 
+    printf("===================================\n");
     printf("Quantidade de elementos na pilha: %d\n", tamanho);
     printf("Elementos da pilha:\n");
 
