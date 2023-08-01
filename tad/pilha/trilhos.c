@@ -101,27 +101,24 @@ void pop(Estacao* estacao)
 {
     if (estacao == NULL || estacaoEstaVazia(estacao)) return;
 
-    Vagao* base = estacao->base;
-    Vagao* topo = estacao->topo;
-
     if (estacao->quantidadeVagoes == 1)
     {
         estacao->base = NULL;
         estacao->topo = NULL;
-
-        free(base);
-        free(topo);
     }
     else
     {
-        Vagao* iterator = base;
+        Vagao* iterator = estacao->base;
 
-        while (iterator->proximo != topo)
+        while (iterator->proximo != estacao->topo)
         {
             iterator = iterator->proximo;
         }
         
+        Vagao* topo = estacao->topo;
+        iterator->proximo = NULL;
         estacao->topo = iterator;
+
         free(topo);
     }
     
@@ -135,8 +132,9 @@ Estacao* invertaOrdemDosVagoes(Estacao* estacao)
     while (estacao->quantidadeVagoes != 0)
     {
         Vagao* topo = estacao->topo;
+        Vagao* vagao = crieVagao(topo->chave);
 
-        push(estacaoVagoesInvertidos, topo);
+        push(estacaoVagoesInvertidos, vagao);
         pop(estacao);
     }
     
@@ -173,19 +171,19 @@ int main()
     int quantidadeVagoes;
 
     scanf("%d", &quantidadeVagoes);
+
+    // Limita a quantidade de vagões da estação em até 1000.
+    if (quantidadeVagoes > 1000) return 0;
+
     int arrayDeChaves[quantidadeVagoes];
 
-    // cria os vagões de 1..quantidadeVagoes.
+    // Lê a ordem que os vagões deverão sair da estação para comparação.
     int i;
     for (i = 0; i < quantidadeVagoes; i++)
     {
         Vagao* vagao = crieVagao(i + 1);
         push(estacao, vagao);
-    }
-    
-    // Lê a ordem que os vagões deverão sair da estação para comparação.
-    for (i = 0; i < quantidadeVagoes; i++)
-    {
+
         scanf("%d", &arrayDeChaves[i]);
     }
     
